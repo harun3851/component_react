@@ -11,6 +11,15 @@ function App() {
 //.then((data)=>{
 //console.log(data);
 //});
+const [name,setName]=useState("");
+const [predictAge,setPredictedAge]=useState(null);
+const fetchData=()=>{
+
+  Axios.get(`https://api.agify.io/?name=${name}`).then((res)=>{
+    setPredictedAge(res.data);
+  });
+
+};
  const fetchCatFact=()=>{
  Axios.get("https://catfact.ninja/fact").then((res)=>{
 setCatFack(res.data.fact);
@@ -40,6 +49,14 @@ setCatFack(res.data.fact);
 
      <button onClick={fetchCatFact}>generate cat fact</button>
      <p>{catFact}</p>
+     <br></br>
+     <input placeholder='harun...' onChange={(event)=>{setName(event.target.value)}}></input>
+     <br></br>
+     <br></br>
+     <button onClick={fetchData} >predict age</button>
+     <h1>name:{predictAge?.name}</h1>
+     <h1>predict age:{predictAge?.age}</h1>
+     <h1>count:{predictAge?.count}</h1>
     </div>
   );
 }
